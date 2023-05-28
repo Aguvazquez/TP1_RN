@@ -1,0 +1,58 @@
+import numpy as np
+from sklearn.model_selection import RandomizedSearchCV
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+# Define the model
+def create_model(optimizer, activation, units, dropOut, pesoInit):
+    model = Sequential()
+    model.add(Flatten(input_shape=(28, 28, 1)))
+    model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+    model.add(Dropout(dropOut))
+    model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+    model.add(Dropout(dropOut))
+    model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+    model.add(Dropout(dropOut))
+    model.add(Dense(10, activation='softmax',kernel_initializer=pesoInit))
+    model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+    return model
+
+# Define the hyperparameters to tune
+param_grid = {
+    'optimizer': ['adam', 'nadam', 'adamax'],
+    'activation': ['relu','tanh', 'sigmoid'],
+    'units': [64,128,512,1024],
+    'dropOut': [0.2,0.3,0.4],
+    'pesoInit': ['glorot_uniform','glorot_normal','normal']
+}
+
+# Create the Keras model
+model = keras.wrappers.scikit_learn.KerasClassifier(build_fn=create_model, verbose=1)
+
+# Create RandomizedSearchCV object
+random_search = RandomizedSearchCV(model, param_distributions=param_grid, cv=None, n_iter=10)
+
+# Fit the model
+random_search.fit(X_train_par, y_sparse_train, validation_data=(X_val_par, y_sparse_val))
+
+# Print the best hyperparameters
+print("Best Hyperparameters: ", random_search.best_params_)
+
+
+
+from keras.datasets import fashion_mnist
+testX = 0
+x_test = 0
+(trainX, trainy), (testX, testy) = fashion_mnist.load_data()
+x_test = np.load("Data/test_images.npy")
+a = testX/255
+prediction_sparse = modelSoftMax.predict(a)
+prediction = np.zeros(10000).astype(int)
+for k in range(10000):
+    prediction[k] = np.argmax(prediction_sparse[k])
+c = 0
+for i in range(10000):
+    if(testy[i] == prediction[i]):
+        c+=1
+c/10000

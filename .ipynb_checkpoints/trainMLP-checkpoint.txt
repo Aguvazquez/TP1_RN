@@ -1,0 +1,78 @@
+MLP_0
+optimizer='nadam'
+activation='relu'
+units=512 
+dropOut=0.25
+pesoInit=None
+model = Sequential()
+model.add(Flatten(input_shape=(28, 28, 1)))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(10, activation='softmax',kernel_initializer=pesoInit))
+
+MLP_1
+optimizer='nadam'
+activation='relu'
+units=512 
+dropOut=0.25
+pesoInit=None
+model = Sequential()
+model.add(Flatten(input_shape=(28, 28, 1)))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dense(units/2, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dense(units/2, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(10, activation='softmax',kernel_initializer=pesoInit))
+
+
+MLP_2
+optimizer='nadam'
+activation='relu'
+units=256 
+dropOut=0.25
+pesoInit=None
+model = Sequential()
+model.add(Flatten(input_shape=(28, 28, 1)))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(BatchNormalization())
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(BatchNormalization())
+model.add(Dense(10, activation='softmax',kernel_initializer=pesoInit))
+
+
+MLP3
+optimizer='nadam'
+activation='relu'
+units=256 
+dropOut=0.25
+pesoInit=None
+model = Sequential()
+model.add(Flatten(input_shape=(28, 28, 1)))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dense(10, activation='softmax',kernel_initializer=pesoInit))
+
+
+MLP 4
+optimizer='nadam'
+activation='relu'
+units=1024 
+dropOut=0.25
+pesoInit=None
+model = Sequential()
+model.add(Flatten(input_shape=(28, 28, 1)))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(units, activation=activation,kernel_initializer=pesoInit))
+model.add(Dropout(dropOut))
+model.add(Dense(10, activation='softmax',kernel_initializer=pesoInit))
+
